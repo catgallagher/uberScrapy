@@ -8,8 +8,10 @@ from w3lib.html import replace_escape_chars
 def addDomain(l):
     return "http://uber.com%l" %l
 
-def replaceComma(c): # replaces commas within values with hyphens to ensure csv integrity
-    return c.replace(', ', '-')
+# function is unnecessary, csv checks for this
+# leaving it in just for kicks
+# def replaceComma(c): # replaces commas within values with hyphens to ensure csv integrity
+#    return c.replace(', ', '-')
 
 class UberSpider(scrapy.Spider):
     name = "uber"
@@ -34,5 +36,4 @@ class UberLoader (ItemLoader):
     link_out = MapCompose(addDomain)
 
     #city_out = MapCompose(replaceComma)
-
     #region_out = MapCompose(replaceComma)
