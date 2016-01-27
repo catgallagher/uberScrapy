@@ -6,7 +6,7 @@ from scrapy.loader.processors import MapCompose, Join, TakeFirst
 from w3lib.html import replace_escape_chars
 
 def addDomain(l):
-    return "http://uber.com%s" %l
+    return "http://uber.com%s" % l
 
 class UberSpider(scrapy.Spider):
     name = "uber"
