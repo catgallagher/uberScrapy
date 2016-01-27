@@ -6,7 +6,7 @@ from scrapy.loader.processors import MapCompose, Join, TakeFirst
 from w3lib.html import replace_escape_chars
 
 def addDomain(l):
-    return "http://uber.com%l" %l
+    return "http://uber.com%s" %l
 
 # function is unnecessary, csv checks for this
 # leaving it in just for kicks
