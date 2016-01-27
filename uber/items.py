@@ -8,8 +8,6 @@
 import scrapy
 
 class UberItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
     region = scrapy.Field()
     city = scrapy.Field()
     link = scrapy.Field()
