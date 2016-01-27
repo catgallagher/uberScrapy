@@ -19,9 +19,9 @@ class UberSpider(scrapy.Spider):
         city_list_path = '//section[@class="cities-list"]/div[@class="grid-locked"]/article/nav'
         region_path = './p[@class = "title"]/text()'
         city_path = './ul/li/a'
-        
+
         for continent in response.xpath(city_list_path):
-            region = continent.xpath(region_path)[0].extract() 
+            region = continent.xpath(region_path).extract() 
             for city in continent.xpath(city_path):
                 l = UberLoader (item = UberItem(), selector=city)
                 l.add_xpath('city', 'text()')
@@ -31,5 +31,6 @@ class UberSpider(scrapy.Spider):
 
 class UberLoader (ItemLoader):
     default_input_processor = MapCompose(unicode.strip, replace_escape_chars)
+    default_output_processor = TakeFirst()
 
     link_out = MapCompose(addDomain)
