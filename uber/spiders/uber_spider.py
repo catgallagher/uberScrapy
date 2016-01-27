@@ -5,8 +5,8 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, Join, TakeFirst
 from w3lib.html import replace_escape_chars
 
-def addDomain(l):
-    return "http://uber.com%s" % l
+def addDomain(path):
+    return "http://uber.com%s" % path
 
 class UberSpider(scrapy.Spider):
     name = "uber"
@@ -16,9 +16,13 @@ class UberSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for sel in response.xpath('//section[@class="cities-list"]/div[@class="grid-locked"]/article/nav'):
-            region = sel.xpath('./p[@class = "title"]/text()')[0].extract() 
-            for city in sel.xpath('./ul/li/a'):
+        city_list_path = '//section[@class="cities-list"]/div[@class="grid-locked"]/article/nav'
+        region_path = './p[@class = "title"]/text()'
+        city_path = './ul/li/a'
+        
+        for continent in response.xpath(city_list_path):
+            region = continent.xpath(region_path)[0].extract() 
+            for city in continent.xpath(city_path):
                 l = UberLoader (item = UberItem(), selector=city)
                 l.add_xpath('city', 'text()')
                 l.add_xpath('link', '@href')
